@@ -27,7 +27,7 @@
                 <label for="imagen" class="form-label mt-4">Imagen</label>
                 <input type="file" formControlName="imagen" (change)="onFileSelected($event)" class="form-control">
               </div>
-              <div style="display: flex; justify-content: center;"><img *ngIf="imagenPrevia" [src]="imagenPrevia" alt="Selected Image" style="width: 250;height: auto;"/></div>
+              <div style="display: flex; justify-content: center;"><img *ngIf="imagenPrevia" [src]="imagenPrevia" alt="Selected Image" width="50" height="50"/></div>
             </fieldset>
             <div class="modal-footer">
               <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Guardar</button>

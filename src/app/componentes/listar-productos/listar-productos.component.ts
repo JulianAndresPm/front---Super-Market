@@ -22,6 +22,9 @@ export class ListarProductosComponent implements OnInit {
     this._productoServicio.getListaProductos().subscribe(
       (data) => {
         this.listaProductos = data;
+        this.listaProductos.forEach(item => {
+          console.log('Image URL:', this.getImageUrl(item.imagen));
+        });
         
       },
       (error) => {
@@ -41,4 +44,12 @@ export class ListarProductosComponent implements OnInit {
       }
     );
   }
+
+  //mostrar la imagen del producto
+  getImageUrl(imagePath: string | null | undefined): string {
+    return imagePath ? `http://localhost:3000/imagenes/${imagePath}` : 'http://localhost:3000/imagenes/default-image.png';
+  }
+  
+  
+  
 }

@@ -22,7 +22,9 @@
         <td>{{ item.descripcion }}</td>
         <td>{{ item.precio | currency }}</td>
         <td>{{ item.stock }}</td>
-        <td>{{ item.imagen }}</td>
+        <td>
+          <img [src]="getImageUrl(item.imagen ?? '')" alt="{{ item.nombre }}" width="50" height="50">
+        </td>
         <td>
           <button type="button" class="btn btn-outline-warning btn-sm" [routerLink]="['/editar', item.id]" routerLinkActive="router-link-active">Editar</button>
           <button type="button" class="btn btn-danger btn-sm m-2" (click)="eliminarProducto(item.id!)">Eliminar</button>

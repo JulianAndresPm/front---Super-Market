@@ -9,6 +9,7 @@ import { AggEditProductosComponent } from './componentes/agg-edit-productos/agg-
 import {ReactiveFormsModule} from'@angular/forms'
 import {HttpClientModule} from "@angular/common/http";
 import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progreso.component';
+import { RegistroComponent } from './componentes/registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progres
     ListarProductosComponent,
     AggEditProductosComponent,
     BarraProgresoComponent,
+    RegistroComponent,
   ],
   imports: [
     BrowserModule,

@@ -75,10 +75,10 @@ export class AggEditProductosComponent implements OnInit {
       console.log("No se seleccionó ninguna imagen.");
     }
 
-    // Mostrar los datos en la consola
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
+    // // Mostrar los datos en la consola
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}:`, value);
+    // });
 
     if (this.id !== 0) {
       this._productoServicio.updateProducto(this.id, formData).subscribe(() => {

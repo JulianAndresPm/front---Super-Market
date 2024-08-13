@@ -3,13 +3,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListarProductosComponent } from './componentes/listar-productos/listar-productos.component';
 import { AggEditProductosComponent } from './componentes/agg-edit-productos/agg-edit-productos.component';
 import { LoginComponent } from './componentes/login/login.component';
+import { RegistroComponent } from './componentes/registro/registro.component';
 
 const routes: Routes = [
   {path: '', component: ListarProductosComponent},
   {path: 'agregar', component: AggEditProductosComponent },
   {path: 'editar/:id', component: AggEditProductosComponent},
-  {path: 'login', component: LoginComponent},
-  {path: '**' ,redirectTo: '', pathMatch: 'full'}
+
+  //rutas de fomrulario de usuarios admin
+  {path: 'registro', component: RegistroComponent},
+
+
+
+  //siempre al final
+  {path: '**' ,redirectTo: '', pathMatch: 'full'},
+
+
 ];
 
 @NgModule({

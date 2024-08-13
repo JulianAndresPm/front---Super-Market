@@ -1,0 +1,64 @@
+<div style="display: flex; justify-content: center">
+  <form
+    [formGroup]="form"
+    (ngSubmit)="addUsuario()"
+    enctype="multipart/form-data"
+    style="width: 70vw"
+  >
+    <fieldset>
+      <h5 class="modal-title">{{ titulo }} Usuarios</h5>
+      <div>
+        <label for="exampleInput" class="form-label mt-4"
+          >Nombres y Apellidos</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombre"
+          id="nombre"
+          placeholder="Nombre completo"
+        />
+      </div>
+      <div>
+        <label for="exampleInput" class="form-label mt-4">Usuario</label>
+        <input type="text" class="form-control" formControlName="usuario" id="usuario" placeholder="" />
+      </div>
+      <div>
+        <label for="exampleInput" class="form-label mt-4">Contraseña</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="passw"
+          id="passw"
+          placeholder="contraseña"
+          autocomplete="off"
+        />
+      </div>
+      <div>
+        <label for="exampleInput" class="form-label mt-4">Rol</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="rol"
+          id="rol"
+          placeholder="admin"
+          autocomplete="off"
+        />
+      </div>
+      <div>
+        <label for="exampleInput" class="form-label mt-4">Foto</label>
+        <input
+          type="file"
+          class="form-control"
+          formControlName="foto"
+          id="foto"
+          placeholder="foto"
+          autocomplete="off"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin-top: 4%">
+        Enviar
+      </button>
+    </fieldset>
+  </form>
+</div>

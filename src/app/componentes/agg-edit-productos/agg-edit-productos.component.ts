@@ -14,6 +14,7 @@ export class AggEditProductosComponent implements OnInit {
   id: number;
   titulo: string = 'Agregar';
   imagenPrevia: string | ArrayBuffer | null = null;
+  imageUrl: string | ArrayBuffer | null = ''; 
 
   constructor(
     private fm: FormBuilder,
@@ -55,10 +56,6 @@ export class AggEditProductosComponent implements OnInit {
   }
 
   addProducto() {
-    if (this.form.invalid) {
-      return;
-    }
-
     const formData = new FormData();
     formData.append('nombre', this.form.get('nombre')?.value);
     formData.append('descripcion', this.form.get('descripcion')?.value);
@@ -67,21 +64,21 @@ export class AggEditProductosComponent implements OnInit {
 
     // Capturar el archivo de la imagen correctamente
     const inputElement = document.querySelector('input[type="file"]') as HTMLInputElement;
-    const file = inputElement?.files?.[0]; // Accede al archivox
+    const file = inputElement?.files?.[0]; // Accede al archivo
 
     if (file) {
-      console.log('Nombre del archivo:', file.name);
-      console.log('Tamaño del archivo:', file.size);
-      console.log('Tipo de archivo:', file.type);
+      // console.log('Nombre del archivo:', file.name);
+      // console.log('Tamaño del archivo:', file.size);
+      // console.log('Tipo de archivo:', file.type);
       formData.append('imagen', file);  // Añade el archivo al FormData
     } else {
       console.log("No se seleccionó ninguna imagen.");
     }
 
-    // // Mostrar los datos en la consola
-    // formData.forEach((value, key) => {
-    //   console.log(`${key}:`, value);
-    // });
+    // Mostrar los datos en la consola
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
 
     if (this.id !== 0) {
       this._productoServicio.updateProducto(this.id, formData).subscribe(() => {
@@ -100,6 +97,8 @@ export class AggEditProductosComponent implements OnInit {
     }
   }
 
+  
+
   // Editar Producto
   EditarProducto(id: number) {
     this._productoServicio.dataProducto(id).subscribe((data: Producto) => {
@@ -108,8 +107,21 @@ export class AggEditProductosComponent implements OnInit {
         descripcion: data.descripcion,
         precio: data.precio,
         stock: data.stock,
-        imagen: data.imagen// Limpiar el campo de imagen
+        imagen: null  
       });
+  
+      // Configurar la URL de la imagen para mostrarla en la vista de edición
+      if (data.imagen) {
+        this.imageUrl = this.getImageUrl(data.imagen);
+      } else {
+        
+      }
     });
   }
+
+  //ruta de la imsgen
+  getImageUrl(imagePath: string | null | undefined): string {
+    return imagePath ? `http://localhost:3000/imagenes/${imagePath}` : 'http://localhost:3000/imagenes/default-image.png';
+  }
+  
 }

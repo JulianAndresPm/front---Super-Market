@@ -8,7 +8,7 @@ import { ListarProductosComponent } from './componentes/listar-productos/listar-
 import { AggEditProductosComponent } from './componentes/agg-edit-productos/agg-edit-productos.component';
 import {ReactiveFormsModule} from'@angular/forms'
 import {HttpClientModule} from "@angular/common/http";
-import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progreso.component'
+import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progreso.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progres
     NavbarComponent,
     ListarProductosComponent,
     AggEditProductosComponent,
-    BarraProgresoComponent
+    BarraProgresoComponent,
   ],
   imports: [
     BrowserModule,

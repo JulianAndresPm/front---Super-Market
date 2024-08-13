@@ -22,10 +22,6 @@ export class ListarProductosComponent implements OnInit {
     this._productoServicio.getListaProductos().subscribe(
       (data) => {
         this.listaProductos = data;
-        this.listaProductos.forEach(item => {
-          console.log('Image URL:', this.getImageUrl(item.imagen));
-        });
-        
       },
       (error) => {
         console.error('Error al obtener los productos', error);

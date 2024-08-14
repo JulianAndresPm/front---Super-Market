@@ -4,6 +4,7 @@ import { ListarProductosComponent } from './componentes/listar-productos/listar-
 import { AggEditProductosComponent } from './componentes/agg-edit-productos/agg-edit-productos.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
+import {ProductosComponent} from './usuarios/productos/productos.component'
 
 const routes: Routes = [
   {path: '', component: ListarProductosComponent},
@@ -12,6 +13,11 @@ const routes: Routes = [
 
   //rutas de fomrulario de usuarios admin
   {path: 'registro', component: RegistroComponent},
+
+
+  //rutas para clientes
+  {path: 'productos', component: ProductosComponent},
+
 
 
 

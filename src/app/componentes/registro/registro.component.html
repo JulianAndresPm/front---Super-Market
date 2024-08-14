@@ -1,29 +1,18 @@
-<div style="display: flex; justify-content: center">
-  <form
-    [formGroup]="form"
-    (ngSubmit)="addUsuario()"
-    enctype="multipart/form-data"
-    style="width: 70vw"
-  >
-    <fieldset>
-      <h5 class="modal-title">{{ titulo }} Usuarios</h5>
-      <div>
-        <label for="exampleInput" class="form-label mt-4"
-          >Nombres y Apellidos</label
-        >
-        <input
-          type="text"
-          class="form-control"
-          formControlName="nombre"
-          id="nombre"
-          placeholder="Nombre completo"
-        />
-      </div>
-      <div>
+<div style="display: flex; justify-content: center;   margin-top: 2%;" >
+  <form  [formGroup]="form" (ngSubmit)="addUsuario()" enctype="multipart/form-data">
+  <h5 class="modal-title">{{ titulo }} Usuarios</h5>
+    <div class="form-group">
+      <label for="inputAddress"></label>
+      <input type="text" type="text" class="form-control" formControlName="nombre" id="nombre"
+      placeholder="Nombre completo">
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group col-md-6">
         <label for="exampleInput" class="form-label mt-4">Usuario</label>
         <input type="text" class="form-control" formControlName="usuario" id="usuario" placeholder="" />
       </div>
-      <div>
+      <div class="form-group col-md-6">
         <label for="exampleInput" class="form-label mt-4">Contraseña</label>
         <input
           type="text"
@@ -34,7 +23,7 @@
           autocomplete="off"
         />
       </div>
-      <div>
+      <div class="form-group col-md-6">
         <label for="exampleInput" class="form-label mt-4">Rol</label>
         <input
           type="text"
@@ -45,7 +34,7 @@
           autocomplete="off"
         />
       </div>
-      <div>
+      <div class="form-group col-md-6">
         <label for="exampleInput" class="form-label mt-4">Foto</label>
         <input
           type="file"
@@ -56,9 +45,8 @@
           autocomplete="off"
         />
       </div>
-      <button type="submit" class="btn btn-primary" style="margin-top: 4%">
-        Enviar
-      </button>
-    </fieldset>
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top: 2%;">Registrate</button>
   </form>
+
 </div>

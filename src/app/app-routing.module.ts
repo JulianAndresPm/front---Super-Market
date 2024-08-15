@@ -5,21 +5,25 @@ import { AggEditProductosComponent } from './componentes/agg-edit-productos/agg-
 import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import {ProductosComponent} from './usuarios/productos/productos.component'
+import { InicioComponent } from './componentes/inicio/inicio.component';
 
 const routes: Routes = [
-  {path: '', component: ListarProductosComponent},
+  {path: '', component: InicioComponent},
+
+  //rutas crud de productos
   {path: 'agregar', component: AggEditProductosComponent },
   {path: 'editar/:id', component: AggEditProductosComponent},
+  {path: 'lista', component: ListarProductosComponent},
+
 
   //rutas de fomrulario de usuarios admin
-  {path: 'registro', component: RegistroComponent},
+  {path: 'registroadmin', component: RegistroComponent},
 
+  //ruta de vista de inicio
+  {path: 'inicio', component: InicioComponent},
 
   //rutas para clientes
   {path: 'productos', component: ProductosComponent},
-
-
-
 
   //siempre al final
   {path: '**' ,redirectTo: '', pathMatch: 'full'},

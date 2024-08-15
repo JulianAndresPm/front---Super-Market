@@ -10,7 +10,9 @@ import {ReactiveFormsModule} from'@angular/forms'
 import {HttpClientModule} from "@angular/common/http";
 import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progreso.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
-import {ProductosComponent} from './usuarios/productos/productos.component'
+import {ProductosComponent} from './usuarios/productos/productos.component';
+import { InicioComponent } from './componentes/inicio/inicio.component';
+import { FooterComponent } from './componentes/footer/footer.component'
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import {ProductosComponent} from './usuarios/productos/productos.component'
     AggEditProductosComponent,
     BarraProgresoComponent,
     RegistroComponent,
-    ProductosComponent
+    ProductosComponent,
+    InicioComponent,
+    FooterComponent
     
   ],
   imports: [

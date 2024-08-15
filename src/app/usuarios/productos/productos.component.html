@@ -3,15 +3,15 @@
 </div>
 <main class="container">
     <div class="row">
-        <div class="card mb-3 col-md-3" *ngFor="let item of listaProductos" style="max-width: 18rem; margin-bottom: 2%;">
-            <h5 class="card-title">{{item.nombre}}</h5>
+        <div class="card mb-3 col-md-3" *ngFor="let item of listaProductos" style="max-width: 18rem;">
+            <h5 class="card-title card-header">{{item.nombre}}</h5>
             <img [src]="getImageUrl(item.imagen ?? '')" class="card-img-top" alt="{{item.nombre}}" style=" height: 250px ;object-fit: cover;">
             <div class="card-body">
                 <p class="card-text">{{item.descripcion}}</p>
             </div>
             <div class="card-footer">
-                <p class="card-text"><strong>{{item.precio | currency}}</strong></p>
-                <button type="button" class="btn btn-success">Comprar</button>
+                <p class="card-text"><strong> Precio: {{item.precio | currency}}</strong></p>
+                <button type="button" class="btn btn-success">Añadir al Carrito</button>
             </div>  
         </div>
     </div>

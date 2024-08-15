@@ -1,6 +1,8 @@
-a{
-    color: black;
+footer{
+    display: flex;
+    justify-content: center;
 }
+
 
 img{
     width: 20vw;
@@ -12,10 +14,6 @@ img{
     justify-content: center;
 }
 
-.menu{
-    display: block;
-}
-
-.columna3{
-    text-align: end;
+.logo{
+    padding: 2vh;
 }

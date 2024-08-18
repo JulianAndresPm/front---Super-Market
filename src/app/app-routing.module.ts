@@ -6,6 +6,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import {ProductosComponent} from './usuarios/productos/productos.component'
 import { InicioComponent } from './componentes/inicio/inicio.component';
+import { RegistrarComponent } from './usuarios/registrar/registrar.component';
 
 const routes: Routes = [
   {path: '', component: InicioComponent},
@@ -17,13 +18,17 @@ const routes: Routes = [
 
 
   //rutas de fomrulario de usuarios admin
-  {path: 'registroadmin', component: RegistroComponent},
+  {path: 'registrarAdmin', component: RegistroComponent},
+  {path: 'editarAd/:id', component: RegistroComponent},
+
 
   //ruta de vista de inicio
   {path: 'inicio', component: InicioComponent},
 
   //rutas para clientes
   {path: 'productos', component: ProductosComponent},
+  {path: 'registrar', component: RegistrarComponent},
+
 
   //siempre al final
   {path: '**' ,redirectTo: '', pathMatch: 'full'},

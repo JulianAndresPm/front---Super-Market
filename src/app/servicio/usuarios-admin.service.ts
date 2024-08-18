@@ -20,4 +20,14 @@ export class UsuariosAdminService {
   createUsuario(usuario: FormData): Observable<void>{
     return this.http.post<void>(this.myAppUrl + this.myAppiUrl, usuario)
   }
+
+  // Obtener datos del Producto
+  dataCliente(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(this.myAppUrl + this.myAppiUrl + id);
+  }
+
+   // Enviar los datos editados
+   updateUsuario(id: number, usuario: FormData): Observable<void> {
+    return this.http.put<void>(this.myAppUrl + this.myAppiUrl + id, usuario);
+  }
 }

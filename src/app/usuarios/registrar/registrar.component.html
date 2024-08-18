@@ -1,0 +1,69 @@
+<div style="display: flex; justify-content: center;   margin-top: 2%; padding-left: 10%;
+    padding-right: 10%;" >
+    <form  [formGroup]="form" (ngSubmit)="addClientes()" enctype="multipart/form-data">
+    <h5 class="modal-title" style="text-align: center;">Registrate</h5>
+      <!-- nombres y apellidos -->
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="exampleInput" class="form-label mt-4">Nombres</label>
+          <input type="text" class="form-control" formControlName="nombres" id="nombres" autocomplete="off" />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="exampleInput" class="form-label mt-4">Apellidos</label>
+          <input type="text" class="form-control" formControlName="apellidos" id="apellidos" autocomplete="off"/>
+        </div>
+        
+        <div class="form-group col-md-6">
+          <label for="exampleInput" class="form-label mt-4">Edad</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="edad"
+            id="edad"
+            autocomplete="off"
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="exampleInput" class="form-label mt-4">Sexo</label>
+          <select class="form-control" id="sexo" formControlName="sexo">
+            <option>M</option>
+            <option>F</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="exampleInput" class="form-label mt-4">Correo</label>
+          <input type="text" class="form-control" formControlName="correo" id="correo" placeholder="" />
+        </div>
+        
+        <div class="form-group col-md-6">
+          <label for="exampleInput" class="form-label mt-4">Foto</label>
+          <input
+            type="file"
+            class="form-control"
+            formControlName="foto"
+            id="foto"
+            autocomplete="off"
+          />
+        </div>
+        
+        <div class="form-group col-md-6">
+          <label for="exampleInput" class="form-label mt-4">Usuario</label>
+          <input type="text" class="form-control" formControlName="usuario" id="usuario" autocomplete="off"/>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="exampleInput" class="form-label mt-4">Contraseña</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="contrasena"
+            id="contrasena"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+    
+      <button type="submit" class="btn btn-primary" style="margin-top: 2%; margin-bottom: 2%;">Registrate</button>
+    </form>
+  
+  </div>
+  

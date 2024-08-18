@@ -12,7 +12,8 @@ import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progres
 import { RegistroComponent } from './componentes/registro/registro.component';
 import {ProductosComponent} from './usuarios/productos/productos.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
-import { FooterComponent } from './componentes/footer/footer.component'
+import { FooterComponent } from './componentes/footer/footer.component';
+import { RegistrarComponent } from './usuarios/registrar/registrar.component'
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FooterComponent } from './componentes/footer/footer.component'
     RegistroComponent,
     ProductosComponent,
     InicioComponent,
-    FooterComponent
+    FooterComponent,
+    RegistrarComponent
     
   ],
   imports: [

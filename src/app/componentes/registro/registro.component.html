@@ -1,5 +1,5 @@
 <div style="display: flex; justify-content: center;   margin-top: 2%;" >
-  <form  [formGroup]="form" (ngSubmit)="addUsuario()" enctype="multipart/form-data">
+  <form  [formGroup]="form" (ngSubmit)="AddUpdateUsuario()" enctype="multipart/form-data">
   <h5 class="modal-title">{{ titulo }} Usuarios</h5>
     <div class="form-group">
       <label for="inputAddress"></label>
@@ -46,7 +46,7 @@
         />
       </div>
     </div>
-    <button type="submit" class="btn btn-primary" style="margin-top: 2%;">Registrate</button>
+    <button type="submit" class="btn btn-primary" style="margin-top: 2%;">{{boton}}</button>
   </form>
 
 </div>

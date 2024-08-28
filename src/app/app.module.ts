@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { ListarProductosComponent } from './componentes/listar-productos/listar-productos.component';
 import { AggEditProductosComponent } from './componentes/agg-edit-productos/agg-edit-productos.component';
-import {ReactiveFormsModule} from'@angular/forms'
-import {HttpClientModule} from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progreso.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
-import {ProductosComponent} from './usuarios/productos/productos.component';
+import { ProductosComponent } from './usuarios/productos/productos.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { FooterComponent } from './componentes/footer/footer.component';
-import { RegistrarComponent } from './usuarios/registrar/registrar.component'
+import { RegistrarComponent } from './usuarios/registrar/registrar.component';
+import { LoginComponent } from './componentes/login/login.component';
 
 
 @NgModule({
@@ -27,12 +27,13 @@ import { RegistrarComponent } from './usuarios/registrar/registrar.component'
     ProductosComponent,
     InicioComponent,
     FooterComponent,
-    RegistrarComponent
-    
+    RegistrarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,        // Necesario para usar [(ngModel)]
     ReactiveFormsModule,
     HttpClientModule
   ],

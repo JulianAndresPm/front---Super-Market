@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Form } from '@angular/forms';
+import {Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import {Usuario} from '../interfaces/usuario'
+import { LoginResponse} from '../interfaces/login'
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +28,9 @@ export class UsuariosAdminService {
 
    // Enviar los datos editados
    updateUsuario(id: number, usuario: FormData): Observable<void> {
-    return this.http.put<void>(this.myAppUrl + this.myAppiUrl + id, usuario);
+    return this.http.put<void>(this.myAppUrl + this.myAppiUrl  + id, usuario);
   }
+
+  
+  
 }

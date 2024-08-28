@@ -30,6 +30,10 @@ const routes: Routes = [
   {path: 'registrar', component: RegistrarComponent},
 
 
+  //login
+  {path: 'login', component: LoginComponent},
+
+
   //siempre al final
   {path: '**' ,redirectTo: '', pathMatch: 'full'},
 

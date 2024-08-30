@@ -1,21 +1,59 @@
-a{
-    color: black;
+a {
+  color: black;
 }
 
-img{
-    width: 20vw;
-    border-radius: 27%;
-    
+img {
+  width: 20vw;
+  border-radius: 27%;
 }
 
-.container{
-    justify-content: center;
+.container {
+  justify-content: center;
 }
 
-.menu{
-    display: block;
+.menu {
+  display: block;
 }
 
-.columna3{
-    text-align: end;
+.columna3 {
+  text-align: end;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5%;
+}
+
+.foto{
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.card-img-top {
+  object-fit: cover;
+  width: 50%;
+}
+
+.datos-tabla{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 5px;
+}
+
+.align-items-start{
+    margin: 15px;
+}
+
+.boton-update{
+    text-align: center;
+    margin: 4px;
+}
+
+.boton-cerrarSesesion{
+  text-align: center;
 }

@@ -1,62 +1,198 @@
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" style="display: flex; flex-direction: column;">
-    <div class="container">
-      <div>
-        <img src="assets/logo.png" alt="Descripción de la imagen">
-      </div>
-      <!-- <div>
+<nav
+  class="navbar navbar-expand-lg bg-primary"
+  data-bs-theme="dark"
+  style="display: flex; flex-direction: column"
+>
+  <div class="container">
+    <div>
+      <img src="assets/logo.png" alt="Descripción de la imagen" />
+    </div>
+    <!-- <div>
         <h1>Super Market</h1>
       </div> -->
-    </div>
+  </div>
 
-    <div class="container menu">
-      <div class="row">
-        <div class="col">
-          <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUsuarios" aria-controls="offcanvasUsuarios">
-            Datos de Usuarios
-          </button>
-        </div>
-          
-        <div class="col">
-          <ul class="navbar-nav me-auto" >
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/']" routerLinkActive="router-link-active">Inicio </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/productos']" routerLinkActive="router-link-active">Productos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/login']" routerLinkActive="router-link-active">Iniciar Sesion</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col columna3">
-          <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCarrito" aria-controls="offcanvasCarrito">
-            Ver Carrito
-          </button>
-        </div>
+  <div class="container menu">
+    <div class="row">
+      <div class="col">
+        <button
+          class="btn btn-light"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasUsuarios"
+          aria-controls="offcanvasUsuarios"
+        >
+          Perfil
+        </button>
+      </div>
+
+      <div class="col">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/']"
+              routerLinkActive="router-link-active"
+              >Inicio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/productos']"
+              routerLinkActive="router-link-active"
+              >Productos</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              [routerLink]="['/login']"
+              routerLinkActive="router-link-active"
+              >Iniciar Sesion</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="col columna3">
+        <button
+          class="btn btn-secondary"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasCarrito"
+          aria-controls="offcanvasCarrito"
+        >
+          Ver Carrito
+        </button>
       </div>
     </div>
+  </div>
 </nav>
 
 <!-- Offcanvas de usuarios -->
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasUsuarios" aria-labelledby="offcanvasUsuariosLabel">
-  <div class="offcanvas-header">
-    <h5 id="offcanvasUsuariosLabel">Datos de Usuarios</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+<div
+  class="offcanvas offcanvas-start"
+  tabindex="-1"
+  id="offcanvasUsuarios"
+  aria-labelledby="offcanvasUsuariosLabel"
+>
+  <div class="offcanvas-header bg-primary">
+    <h5 id="offcanvasUsuariosLabel" style="margin: auto">Datos Usuario</h5>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
   </div>
   <div class="offcanvas-body">
     <!-- Contenido de los datos de usuarios -->
-    <p>Nombre: Juan Pérez</p>
-    <p>Email: juan.perez@example.com</p>
+    <!-- Aquí se mostrarán los datos o el mensaje de iniciar sesión -->
+    <div *ngIf="isLoggedIn() ; else loggedOut">
+      <div *ngIf="getUserType() == 'cliente'">
+        <h5 class="card-header">
+          <h5>Bienvenido</h5>
+          <div style="text-align: center">
+            {{ userInfo?.nombres + " " + userInfo?.apellidos }}
+          </div>
+        </h5>
+        <div class="foto">
+          <img
+            [src]="getImageUrl(userInfo.foto ?? '')"
+            class="card-img-top"
+            alt="{{ userInfo.foto }}"
+          />
+        </div>
+        <div class="datos-tabla">
+          <div class="row align-items-start">
+            <div class="col">Edad</div>
+            <div class="col">{{ userInfo?.edad }}</div>
+          </div>
+          <div class="row align-items-start">
+            <div class="col">Sexo</div>
+            <div class="col">{{ userInfo?.sexo }}</div>
+          </div>
+          <div class="row align-items-start ">
+            <div class="col">Correo</div>
+            <div class="col">{{userInfo?.correo }}</div>
+          </div>
+          
+        </div>
+      </div>
+      <div *ngIf="getUserType() == 'admin'">
+        <h5 class="card-header">
+          <h5>Bienvenido Admin</h5>
+          <div style="text-align: center">
+            {{ userInfo?.nombre}}
+          </div>
+        </h5>
+        <div class="foto">
+          <img
+            [src]="getImageUrl(userInfo.foto ?? '')"
+            class="card-img-top"
+            alt="{{ userInfo.foto }}"
+          />
+        </div>
+        <div class="datos-tabla">
+          <div class="row align-items-start">
+            <div class="col">Usuario</div>
+            <div class="col">{{ userInfo?.usuario }}</div>
+          </div>
+          <div class="row align-items-start">
+            <div class="col">Contraseña</div>
+            <div class="col">{{ userInfo?.passw }}</div>
+          </div>
+        </div>
+      </div>
+      <!-- Boton de actualizar datos -->
+      <div class="row align-items-start">
+        <div class="col card-footer text-muted">
+          <div style="text-align: center;">
+            ¿Deseas actualizar tus datos personales?
+          </div>
+          <div class="col boton-update">
+            <button type="button" class="btn btn-primary" (click)="redirectToUpdate()">Actualizar</button>
+          </div>
+        </div>
+      </div>
+      <div class="boton-cerrarSesesion">
+        <button type="button" class="btn btn-danger" (click)="redirectToExit()">Cerrar Sesion</button>
+      </div>
+    </div>
+    
+    <!-- Mensaje si no hay una session iniciado -->
+    <ng-template #loggedOut>
+      <h6 style="text-align: center">
+        Inicia sesión para acceder a tu cuenta.
+      </h6>
+      <div class="botones">
+        <button class="btn btn-primary" (click)="redirectToLogin()">
+          Iniciar Sesión
+        </button>
+        <button class="btn btn-secondary" (click)="redirectToRegister()">
+          Registrarse
+        </button>
+      </div>
+    </ng-template>
     <!-- Otros datos de usuario -->
   </div>
 </div>
 
 <!-- Offcanvas del carrito -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrito" aria-labelledby="offcanvasCarritoLabel">
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="offcanvasCarrito"
+  aria-labelledby="offcanvasCarritoLabel"
+>
   <div class="offcanvas-header">
     <h5 id="offcanvasCarritoLabel">Carrito de Compras</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
   </div>
   <div class="offcanvas-body">
     <!-- Contenido del carrito -->
@@ -65,5 +201,3 @@
     <!-- Más productos -->
   </div>
 </div>
-
-  

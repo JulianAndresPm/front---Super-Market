@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Cliente } from 'src/app/interfaces/cliente';
 import { UsuariosClientesService } from 'src/app/servicio/usuarios.clientes.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class RegistrarComponent implements OnInit {
   id: number;
   fotoUrl: string | ArrayBuffer | null = '';
   titulo: string = 'Registrate';
+  boton: string = 'Enviar';
 
   constructor(
     private fm: FormBuilder,
@@ -34,7 +36,11 @@ export class RegistrarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    if (this.id !== 0) {
+      this.titulo = 'Actualizar';
+      this.boton = 'Guardar';
+      this.EditarCliente(this.id);
+    }
   }
 
   // Obtener foto de cliente
@@ -69,13 +75,45 @@ export class RegistrarComponent implements OnInit {
       console.log('No se seleccionó ninguna imagen.');
     }
 
-    // Mostrar los datos en la consola
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
+    // // Mostrar los datos en la consola
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}:`, value);
+    // });
 
-    this._usuariosClientService.createCliente(formData).subscribe(() => {
-      console.log('cliente agregado con éxito');
+    if (this.id !==0) {
+      this._usuariosClientService.updateCliente(this.id, formData).subscribe(()=>{
+        console.log('Usuario cliente fue actualizado con exito');
+        this.router.navigate(['/'])
+      },
+      (error) => {
+        console.error('error al actualizar datos del cliente', error);
+        
+      });
+    } else {
+      this._usuariosClientService.createCliente(formData).subscribe(() => {
+        console.log('cliente agregado con éxito');
+      },
+      (error) => {
+        console.error('error registrar datos del cliente', error);
+      }
+    );
+    }
+  }
+
+  EditarCliente(id: number) {
+    this._usuariosClientService.dataCliente(id).subscribe((data: Cliente) => {
+      this.form.patchValue({
+        nombres: data.nombres,
+        apellidos: data.apellidos,
+        edad: data.edad,
+        sexo: data.sexo,
+        correo: data.correo,
+        usuario: data.usuario,
+        contrasena: data.contrasena,
+        foto: null  
+      });
+    
     });
   }
+  
 }

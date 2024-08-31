@@ -17,9 +17,9 @@ const routes: Routes = [
   {path: 'lista', component: ListarProductosComponent},
 
 
-  //rutas de fomrulario de usuarios admin
+  //rutas de fomrulario de usuarios admin 
   {path: 'registrarAdmin', component: RegistroComponent},
-  {path: 'editarAd/:id', component: RegistroComponent},
+  {path: 'editarAdmin/:id', component: RegistroComponent},
 
 
   //ruta de vista de inicio
@@ -28,6 +28,8 @@ const routes: Routes = [
   //rutas para clientes
   {path: 'productos', component: ProductosComponent},
   {path: 'registrar', component: RegistrarComponent},
+  {path: 'editarUser/:id', component: RegistrarComponent},
+
 
 
   //login

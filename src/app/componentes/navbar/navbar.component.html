@@ -91,7 +91,7 @@
     <div *ngIf="isLoggedIn() ; else loggedOut">
       <div *ngIf="getUserType() == 'cliente'">
         <h5 class="card-header">
-          <h5>Bienvenido</h5>
+          <h5>Bienvenid@</h5>
           <div style="text-align: center">
             {{ userInfo?.nombres + " " + userInfo?.apellidos }}
           </div>
@@ -121,7 +121,7 @@
       </div>
       <div *ngIf="getUserType() == 'admin'">
         <h5 class="card-header">
-          <h5>Bienvenido Admin</h5>
+          <h5>Bienvenid@ Admin</h5>
           <div style="text-align: center">
             {{ userInfo?.nombre}}
           </div>

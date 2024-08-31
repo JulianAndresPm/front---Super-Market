@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/interfaces/usuario';
 import { UsuariosAdminService } from 'src/app/servicio/usuarios-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -79,11 +80,11 @@ export class RegistroComponent implements OnInit {
     if (this.id !== 0) {
       this._usuariosAdminService.updateUsuario(this.id, formData).subscribe(
         () => {
-          console.log('Producto fue actualizado con éxito');
+          console.log('usuario admin fue actualizado con éxito');
           this.router.navigate(['/']); // Navegar después de la actualización
         },
         (error) => {
-          console.error('Error al actualizar producto', error);
+          console.error('Error al actualizar', error);
         }
       );
     } else {
@@ -104,7 +105,7 @@ export class RegistroComponent implements OnInit {
       this.form.patchValue({
         nombre: data.nombre,
         usuario: data.usuario,
-        passw: data.usuario,
+        passw: data.passw,
         rol: data.rol,
         foto: null,
       });

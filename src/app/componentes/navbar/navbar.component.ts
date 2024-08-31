@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit{
  
 
 
-  constructor(){}
+  constructor(private router: Router){}
 
   ngOnInit(): void {
     const userInfo = sessionStorage.getItem('userInfo');
@@ -66,10 +67,11 @@ export class NavbarComponent implements OnInit{
   redirectToUpdate(): void {
 
     if (this.UserType === 'cliente') {
-    window.location.href = '/productos';
+      this.router.navigate(['/editarUser', this.userInfo.id]); 
       
     } else if (this.UserType === 'admin'){
-      window.location.href = '/login';
+      this.router.navigate(['/editarAdmin', this.userInfo.id]); 
+      
     }
    
   }

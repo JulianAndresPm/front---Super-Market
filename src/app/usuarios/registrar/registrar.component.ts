@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/cliente';
+import { SessionStorageService } from 'src/app/servicio/session-storage.service';
 import { UsuariosClientesService } from 'src/app/servicio/usuarios.clientes.service';
 
 @Component({
@@ -15,12 +16,15 @@ export class RegistrarComponent implements OnInit {
   fotoUrl: string | ArrayBuffer | null = '';
   titulo: string = 'Registrate';
   boton: string = 'Enviar';
+  UserInfo: any;
 
   constructor(
     private fm: FormBuilder,
     private _usuariosClientService: UsuariosClientesService, // Aquí debes inyectar el servicio
     private router: Router,
-    private aRouter: ActivatedRoute
+    private aRouter: ActivatedRoute,
+    private storageService: SessionStorageService,
+
   ) {
     this.form = this.fm.group({
       nombres: ['', Validators.required],
@@ -33,6 +37,7 @@ export class RegistrarComponent implements OnInit {
       contrasena: ['', Validators.required],
     });
     this.id = Number(this.aRouter.snapshot.paramMap.get('id'));
+    this.UserInfo = this.storageService.getItem('UserInfo');
   }
 
   ngOnInit(): void {
@@ -81,8 +86,16 @@ export class RegistrarComponent implements OnInit {
     // });
 
     if (this.id !==0) {
-      this._usuariosClientService.updateCliente(this.id, formData).subscribe(()=>{
+      this._usuariosClientService.updateCliente(this.id, formData).subscribe(
+        (Cliente: Cliente)=>{
         console.log('Usuario cliente fue actualizado con exito');
+
+        // Eliminar la entrada anterior de sessionStorage
+        this.storageService.removeItem('UserInfo');
+
+        // Guarda el objeto Cliente desanidado directamente en sessionStorage
+        this.storageService.setItem('UserInfo',Cliente);
+
         this.router.navigate(['/'])
       },
       (error) => {

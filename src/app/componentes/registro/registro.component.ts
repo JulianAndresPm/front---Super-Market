@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from 'src/app/interfaces/usuario';
+import { Admin } from 'src/app/interfaces/admin';
 import { UsuariosAdminService } from 'src/app/servicio/usuarios-admin.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {SessionStorageService} from 'src/app/servicio/session-storage.service'
 
 
 @Component({
@@ -16,12 +17,14 @@ export class RegistroComponent implements OnInit {
   fotoUrl: string | ArrayBuffer | null = '';
   titulo: string = 'Registrar';
   boton: string = 'Registrate';
+  UserInfo: any;
 
   constructor(
     private fm: FormBuilder,
     private _usuariosAdminService: UsuariosAdminService, // Aquí debes inyectar el servicio
     private router: Router,
-    private aRouter: ActivatedRoute
+    private aRouter: ActivatedRoute,
+    private storageService: SessionStorageService,
   ) {
     // Validaciones
     this.form = this.fm.group({
@@ -32,6 +35,7 @@ export class RegistroComponent implements OnInit {
       foto: [null],
     });
     this.id = Number(this.aRouter.snapshot.paramMap.get('id'));
+    this.UserInfo = this.storageService.getItem('UserInfo');
   }
 
   ngOnInit(): void {
@@ -79,9 +83,15 @@ export class RegistroComponent implements OnInit {
 
     if (this.id !== 0) {
       this._usuariosAdminService.updateUsuario(this.id, formData).subscribe(
-        () => {
+        (Admin: Admin) => {
           console.log('usuario admin fue actualizado con éxito');
-          this.router.navigate(['/']); // Navegar después de la actualización
+          // Eliminar la entrada anterior de sessionStorage
+        this.storageService.removeItem('UserInfo');
+
+        // Guarda el objeto Cliente desanidado directamente en sessionStorage
+        this.storageService.setItem('UserInfo',Admin);
+        
+        this.router.navigate(['/']); // Navegar después de la actualización
         },
         (error) => {
           console.error('Error al actualizar', error);
@@ -101,7 +111,7 @@ export class RegistroComponent implements OnInit {
   }
 
   EditarUsuario(id: number) {
-    this._usuariosAdminService.dataCliente(id).subscribe((data: Usuario) => {
+    this._usuariosAdminService.dataCliente(id).subscribe((data: Admin) => {
       this.form.patchValue({
         nombre: data.nombre,
         usuario: data.usuario,

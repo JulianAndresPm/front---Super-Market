@@ -11,8 +11,8 @@ export class LoginComponent implements OnInit {
   usuario: string = '';
   passw: string = '';
   isLoggedIn: boolean = false;
-  userInfo: any = null;
-  userType: any = null;
+  UserInfo: any = null;
+  UserType: any = null;
 
 
   constructor(private _productoServicio: AuthUsuariosService) {}
@@ -30,12 +30,12 @@ export class LoginComponent implements OnInit {
 
         //verificar que tipo de usuario es:
         if (response.UserType === 'admin') {
-          sessionStorage.setItem('userInfo',JSON.stringify( response.admin)); // Guardar información adicional si es necesario
+          sessionStorage.setItem('UserInfo',JSON.stringify( response.admin)); // Guardar información adicional si es necesario
             // Redirigir a la página principal 
             window.location.href = '/';
           
         }if(response.UserType ==='cliente'){
-          sessionStorage.setItem('userInfo',JSON.stringify( response.cliente)); // Guardar información adicional si es necesario
+          sessionStorage.setItem('UserInfo',JSON.stringify( response.cliente)); // Guardar información adicional si es necesario
             // Redirigir a la página principal 
             window.location.href = '/';
         }
@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // Verifica si el token está en el localStorage
     const token = sessionStorage.getItem('token');
-    const userInfo = sessionStorage.getItem('userInfo') ?? '{}';
+    const UserInfo = sessionStorage.getItem('UserInfo') ?? '{}';
     if (token) {
       this.isLoggedIn = true;
-      this.userInfo = JSON.parse(userInfo); // Convertir la cadena JSON en un objeto
+      this.UserInfo = JSON.parse(UserInfo); // Convertir la cadena JSON en un objeto
     } else {
       this.isLoggedIn = false;
       

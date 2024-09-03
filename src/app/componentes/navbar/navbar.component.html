@@ -93,28 +93,28 @@
         <h5 class="card-header">
           <h5>Bienvenid@</h5>
           <div style="text-align: center">
-            {{ userInfo?.nombres + " " + userInfo?.apellidos }}
+            {{ UserInfo?.nombres + " " + UserInfo?.apellidos }}
           </div>
         </h5>
         <div class="foto">
           <img
-            [src]="getImageUrl(userInfo.foto ?? '')"
+            [src]="getImageUrl(UserInfo.foto ?? '')"
             class="card-img-top"
-            alt="{{ userInfo.foto }}"
+            alt="{{ UserInfo.foto }}"
           />
         </div>
         <div class="datos-tabla">
           <div class="row align-items-start">
             <div class="col">Edad</div>
-            <div class="col">{{ userInfo?.edad }}</div>
+            <div class="col">{{ UserInfo?.edad }}</div>
           </div>
           <div class="row align-items-start">
             <div class="col">Sexo</div>
-            <div class="col">{{ userInfo?.sexo }}</div>
+            <div class="col">{{ UserInfo?.sexo }}</div>
           </div>
           <div class="row align-items-start ">
             <div class="col">Correo</div>
-            <div class="col">{{userInfo?.correo }}</div>
+            <div class="col">{{UserInfo?.correo }}</div>
           </div>
           
         </div>
@@ -123,24 +123,24 @@
         <h5 class="card-header">
           <h5>Bienvenid@ Admin</h5>
           <div style="text-align: center">
-            {{ userInfo?.nombre}}
+            {{ UserInfo?.nombre}}
           </div>
         </h5>
         <div class="foto">
           <img
-            [src]="getImageUrl(userInfo.foto ?? '')"
+            [src]="getImageUrl(UserInfo.foto ?? '')"
             class="card-img-top"
-            alt="{{ userInfo.foto }}"
+            alt="{{ UserInfo.foto }}"
           />
         </div>
         <div class="datos-tabla">
           <div class="row align-items-start">
             <div class="col">Usuario</div>
-            <div class="col">{{ userInfo?.usuario }}</div>
+            <div class="col">{{ UserInfo?.usuario }}</div>
           </div>
           <div class="row align-items-start">
             <div class="col">Contraseña</div>
-            <div class="col">{{ userInfo?.passw }}</div>
+            <div class="col">{{ UserInfo?.passw }}</div>
           </div>
         </div>
       </div>

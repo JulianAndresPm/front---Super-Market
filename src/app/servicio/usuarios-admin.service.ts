@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import {Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
-import {Usuario} from '../interfaces/usuario'
+import {Admin} from '../interfaces/admin'
 @Injectable({
   providedIn: 'root'
 })
@@ -16,18 +16,18 @@ export class UsuariosAdminService {
   }
 
   //agregar usuario
-  createUsuario(usuario: FormData): Observable<void>{
-    return this.http.post<void>(this.myAppUrl + this.myAppiUrl, usuario)
+  createUsuario(Admin: FormData): Observable<void>{
+    return this.http.post<void>(this.myAppUrl + this.myAppiUrl, Admin)
   }
 
   // Obtener datos del Producto
-  dataCliente(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(this.myAppUrl + this.myAppiUrl + id);
+  dataCliente(id: number): Observable<Admin> {
+    return this.http.get<Admin>(this.myAppUrl + this.myAppiUrl + id);
   }
 
    // Enviar los datos editados
-   updateUsuario(id: number, usuario: FormData): Observable<void> {
-    return this.http.put<void>(this.myAppUrl + this.myAppiUrl  + id, usuario);
+   updateUsuario(id: number, Admin: FormData): Observable<Admin> {
+    return this.http.put<Admin>(this.myAppUrl + this.myAppiUrl  + id, Admin);
   }
 
   

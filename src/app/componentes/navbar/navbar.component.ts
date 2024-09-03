@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit{
-  userInfo: any = null;
+  UserInfo: any = null;
   UserType: any = null;
   token: any = null;
   message: any = null;
@@ -17,16 +17,16 @@ export class NavbarComponent implements OnInit{
   constructor(private router: Router){}
 
   ngOnInit(): void {
-    const userInfo = sessionStorage.getItem('userInfo');
+    const UserInfo = sessionStorage.getItem('UserInfo');
     const UserType = sessionStorage.getItem('UserType');
     const token = sessionStorage.getItem('token')
     const message = sessionStorage.getItem('message')
-    if (userInfo) {
-      this.userInfo = JSON.parse(userInfo);
+    if (UserInfo) {
+      this.UserInfo = JSON.parse(UserInfo);
       this.UserType = UserType;
       this.token = token;
       this.message = message;
-      console.log(UserType);
+      // console.log(UserType);
       
     }
   }
@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit{
 
   // Método para verificar si el usuario ha iniciado sesión
   isLoggedIn(): boolean {
-    return !!this.userInfo;
+    return !!this.UserInfo;
   }
 
   // Método para verificar si el usuario es administrador
@@ -67,10 +67,10 @@ export class NavbarComponent implements OnInit{
   redirectToUpdate(): void {
 
     if (this.UserType === 'cliente') {
-      this.router.navigate(['/editarUser', this.userInfo.id]); 
+      this.router.navigate(['/editarUser', this.UserInfo.id]); 
       
     } else if (this.UserType === 'admin'){
-      this.router.navigate(['/editarAdmin', this.userInfo.id]); 
+      this.router.navigate(['/editarAdmin', this.UserInfo.id]); 
       
     }
    

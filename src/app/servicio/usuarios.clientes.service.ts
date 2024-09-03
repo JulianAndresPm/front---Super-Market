@@ -26,8 +26,8 @@ export class UsuariosClientesService {
   }
 
   // Enviar los datos editados
-  updateCliente(id: number, cliente: FormData): Observable<void> {
-    return this.http.put<void>(this.myAppUrl + this.myAppiUrl + id, cliente);
+  updateCliente(id: number, cliente: FormData): Observable<Cliente> {
+    return this.http.put<Cliente>(this.myAppUrl + this.myAppiUrl + id, cliente);
   }
 
 }

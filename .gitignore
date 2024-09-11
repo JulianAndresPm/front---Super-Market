@@ -1,5 +1,7 @@
 node_modules/
 *angular/
+cache/
+*dist/
 .angular/cache/15.2.11/angular-webpack/
 .angular/cache/15.2.11/angular-webpack/34d3b961733c78f7a299c3280be2de2b8efb9596/11.pack
 .angular/cache/15.2.11/angular-webpack/34d3b961733c78f7a299c3280be2de2b8efb9596/0.pack

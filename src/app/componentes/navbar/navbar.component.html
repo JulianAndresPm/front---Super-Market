@@ -228,9 +228,9 @@
         <!-- Botones de editar y eliminar -->
          <div class="botonesCarrito">
           <button class="btn btn-warning" *ngIf="editar" (click)="cancelarEdicion()">Cancelar</button>
-          <button type="submit" class="btn btn-success" *ngIf="editar" (click)="updateCarrito()">Guardar</button>
+          <button type="submit" class="btn btn-success" *ngIf="editar" (click)="updateCarrito(item.id!)" >Guardar</button>
            <button class="btn btn-primary" *ngIf="!editar" (click)="dataCarrito(item.id!)">Editar</button>
-           <button class="btn btn-danger"  *ngIf="!editar" >Eliminar</button>
+           <button class="btn btn-danger"  *ngIf="!editar" (click)="eliminarCarrito(item.id!)" >Eliminar</button>
          </div> 
       </div>
     </div>

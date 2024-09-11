@@ -26,7 +26,7 @@ export class CarritoService {
     return this.http.get<Carrito[]>(this.myAppUrl +this.myAppiUrl +'productos/' + usuario_id );
   }
 
-  // Obtener datos del Producto
+  // Obtener datos del carrito
   dataCarrito(id: number): Observable<Carrito> {
     return this.http.get<Carrito>(this.myAppUrl + this.myAppiUrl + id);
   }
@@ -35,5 +35,10 @@ export class CarritoService {
   updateCarrito(carrito_id: number, cantidad: number): Observable<void> {
     const body = {cantidad};
     return this.http.put<void>(this.myAppUrl + this.myAppiUrl + carrito_id, body);
+  }
+
+  //eliminar un producto del carrito
+  deleteCarrito(id: number): Observable<void>{
+    return this.http.delete<void>(this.myAppUrl + this.myAppiUrl + id)
   }
 }

@@ -152,12 +152,11 @@ export class NavbarComponent implements OnInit{
 
   //actualizar los datos - cantidad
 
-  updateCarrito(){
+  updateCarrito(id: number){
     const NuevaCantidad = this.form.get('cantidad')?.value;
-    console.log(this.carrito_id);
-    if (this.carrito_id !== null && NuevaCantidad !== undefined) {
+    if (NuevaCantidad !== undefined) {
       
-      this._CarritoService.updateCarrito(this.carrito_id, NuevaCantidad).subscribe(
+      this._CarritoService.updateCarrito(id, NuevaCantidad).subscribe(
         () => {
           console.log('enviada ? '+ NuevaCantidad);
           console.log('Cantidad actualizada exitosamente.');
@@ -170,8 +169,25 @@ export class NavbarComponent implements OnInit{
     }
   }
 
-  test() {
-    console.log('El botón de prueba funciona.');
+  eliminarCarrito(id: number): void{
+    
+      this._CarritoService.deleteCarrito(id).subscribe(
+        ()=>{
+          console.log("producto eliminado id:" + id);
+          
+        },(Error) =>{
+          console.error('Error al eliminar le prodcuto del carrito', Error);
+          
+        }
+      )
+      
+  }
+
+  test(){
+    console.log(
+      "si funciona boton"
+    );
+    
   }
 
   }

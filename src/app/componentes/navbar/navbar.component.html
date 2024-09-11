@@ -178,6 +178,9 @@
   </div>
 </div>
 
+
+<!-- ------------------------------------------------------------------------------------- -->
+
 <!-- Offcanvas del carrito -->
 <div
   class="offcanvas offcanvas-end"
@@ -185,19 +188,55 @@
   id="offcanvasCarrito"
   aria-labelledby="offcanvasCarritoLabel"
 >
-  <div class="offcanvas-header">
-    <h5 id="offcanvasCarritoLabel">Carrito de Compras</h5>
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="offcanvas"
-      aria-label="Close"
-    ></button>
+  <div class="offcanvas-header bg-primary" >
+      <h5 id="offcanvasCarritoLabel " style="margin: auto;">Carrito de Compras</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
   </div>
   <div class="offcanvas-body">
-    <!-- Contenido del carrito -->
-    <p>Producto 1: $10</p>
-    <p>Producto 2: $15</p>
-    <!-- Más productos -->
+    <div *ngIf="CarritoItems.length > 0; else noHayProductos">
+      <div *ngFor="let item of CarritoItems " class="contendorProductos">
+        <h5 class="card-header">{{ item.Producto?.nombre }}</h5>
+        <img [src]="getUrlImagen(item.Producto?.imagen ?? '')" class="card-img-top" alt="{{item.Producto?.imagen}}" style=" height: 250px ;object-fit: cover;">
+        <p class="card-text"><strong>{{ item.Producto?.descripcion}}</strong></p> 
+        <div class="row" >
+          <div class="col card-header ">Precio</div>
+          <div class="col card-header">Cantidad</div>
+        </div>
+        <div class="row">
+          <div class="col" style="margin: auto;">{{ item.Producto?.precio | currency }}</div>
+          <div *ngIf="!editar" class="col list-group-item" >{{ item.cantidad }}</div>
+          <form [formGroup]="form">
+            <input 
+            *ngIf="editar"
+            type="number" 
+            name="cantidad"
+            formControlName="cantidad"
+            class="col"
+            [(ngModel)]="item.cantidad" 
+            min="1" />
+          </form>
+        </div>
+        <div class="row">
+          <div class="col card-header">Subtotal</div>
+          <div class="col list-group-item">{{ item.subtotal | currency }}</div>
+        </div>
+        <!-- Botones de editar y eliminar -->
+         <div class="botonesCarrito">
+          <button class="btn btn-warning" *ngIf="editar" (click)="cancelarEdicion()">Cancelar</button>
+          <button type="submit" class="btn btn-success" *ngIf="editar" (click)="updateCarrito()">Guardar</button>
+           <button class="btn btn-primary" *ngIf="!editar" (click)="dataCarrito(item.id!)">Editar</button>
+           <button class="btn btn-danger"  *ngIf="!editar" >Eliminar</button>
+         </div> 
+      </div>
+    </div>
   </div>
+  <div class="card-footer">Total: $0</div>
+  <ng-template #noHayProductos>
+    <p>No hay productos en el carrito.</p>
+  </ng-template>
 </div>

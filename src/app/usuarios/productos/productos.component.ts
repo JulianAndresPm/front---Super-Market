@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/interfaces/producto';
+import { Carrito } from 'src/app/interfaces/carrito';
 import { ProductoService } from 'src/app/servicio/producto.service';
+import { CarritoService } from 'src/app/servicio/carrito.service';
 
 @Component({
   selector: 'app-productos',
@@ -8,15 +10,22 @@ import { ProductoService } from 'src/app/servicio/producto.service';
   styleUrls: ['./productos.component.scss']
 })
 export class ProductosComponent implements OnInit {
-
   listaProductos: Producto[] = [];
-  constructor(private _productoServicio: ProductoService){
 
-  }
+  // Variables para la función del carrito
+  usuario_id: number = JSON.parse(sessionStorage.getItem('UserInfo')!)?.id;
 
-  //obtener la lista de productos
+  
+  carrito: Carrito[] = [];
+  productos: any[] = [];
+
+  constructor(
+    private _productoServicio: ProductoService,
+    private _CarritoService: CarritoService
+  ) {}
+
+  // Obtener la lista de productos
   getProductos() {
-
     this._productoServicio.getListaProductos().subscribe(
       (data) => {
         this.listaProductos = data;
@@ -27,13 +36,60 @@ export class ProductosComponent implements OnInit {
     );
   }
 
-  //mostrar la imagen del producto
+  // Mostrar la imagen del producto
   getImageUrl(imagePath: string | null | undefined): string {
-    return imagePath ? `http://localhost:3000/imagenes/${imagePath}` : 'http://localhost:3000/imagenes/default-image.png';
+    return imagePath? `http://localhost:3000/imagenes/${imagePath}`
+      :'http://localhost:3000/imagenes/default-image.png';
   }
 
   ngOnInit(): void {
-   this.getProductos();
+    this.getProductos();
   }
 
+  // Agregar producto al carrito
+  agregarAlCarrito(productoId: number): void {
+    console.log(this.usuario_id);
+  
+    if (!this.usuario_id) {
+      console.error('No hay usuario autenticado. Por favor, inicia sesión.');
+      console.log(Error);
+      
+      // Aquí podrías mostrar una notificación o redirigir al login
+      return;
+    }
+
+    // Encontrar el producto en la lista de productos
+    const producto = this.listaProductos.find(p => p.id === productoId);
+
+    if (!producto) {
+      console.error('Producto no encontrado.');
+      return;
+    }
+
+    const cantidad = 1;
+    const subtotal = producto.precio * cantidad;
+
+    const carritoItem: Carrito = {
+      usuario_id: this.usuario_id,
+      producto_id: producto.id as number,
+      cantidad: cantidad,
+      subtotal: subtotal
+    };
+
+    this._CarritoService.agregarProducto(carritoItem).subscribe(
+      () => {
+        console.log('Producto agregado al carrito');
+        // Recargar el carrito después de agregar un producto si es necesario
+        this.cargarCarrito();
+      },
+      (error) => {
+        console.error('Error al agregar el producto al carrito:', error);
+      }
+    );
+  }
+
+  // Método para recargar el carrito
+  cargarCarrito() {
+    // Lógica para cargar el carrito actual desde el backend o almacenamiento local
+  }
 }

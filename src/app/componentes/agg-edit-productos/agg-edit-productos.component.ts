@@ -67,18 +67,10 @@ export class AggEditProductosComponent implements OnInit {
     const file = inputElement?.files?.[0]; // Accede al archivo
 
     if (file) {
-      // console.log('Nombre del archivo:', file.name);
-      // console.log('Tamaño del archivo:', file.size);
-      // console.log('Tipo de archivo:', file.type);
       formData.append('imagen', file);  // Añade el archivo al FormData
     } else {
       console.log("No se seleccionó ninguna imagen.");
     }
-
-    // // Mostrar los datos en la consola
-    // formData.forEach((value, key) => {
-    //   console.log(`${key}:`, value);
-    // });
 
     if (this.id !== 0) {
       this._productoServicio.updateProducto(this.id, formData).subscribe(() => {

@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
 import { Carrito } from '../interfaces/carrito';
+import { WebSocketService } from '../servicio/web-socket.service'; 
+import { tap } from 'rxjs/operators'; 
 
 
 
@@ -13,13 +15,15 @@ export class CarritoService {
   private myAppUrl: string;
   private myAppiUrl: string;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _socketService: WebSocketService) {
     this.myAppUrl = environment.endPoint;
     this.myAppiUrl = '/api/carrito/';
    }
 
    agregarProducto(carrito: Carrito): Observable<void> {
-    return this.http.post<void>(this.myAppUrl +this.myAppiUrl, carrito);
+    return this.http.post<void>(this.myAppUrl + this.myAppiUrl, carrito).pipe(
+      tap(() => this._socketService.emitEvent('carritoActualizado', carrito))
+    );
   }
 
   getCarritoByUser(usuario_id: number): Observable<Carrito[]> {

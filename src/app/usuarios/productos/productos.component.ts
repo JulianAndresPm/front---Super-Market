@@ -4,6 +4,7 @@ import { Carrito } from 'src/app/interfaces/carrito';
 import { ProductoService } from 'src/app/servicio/producto.service';
 import { CarritoService } from 'src/app/servicio/carrito.service';
 
+
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
@@ -14,8 +15,6 @@ export class ProductosComponent implements OnInit {
 
   // Variables para la función del carrito
   usuario_id: number = JSON.parse(sessionStorage.getItem('UserInfo')!)?.id;
-
-  
   carrito: Carrito[] = [];
   productos: any[] = [];
 
@@ -23,7 +22,10 @@ export class ProductosComponent implements OnInit {
     private _productoServicio: ProductoService,
     private _CarritoService: CarritoService
   ) {}
-
+  
+  ngOnInit(): void {
+    this.getProductos();
+  }
   // Obtener la lista de productos
   getProductos() {
     this._productoServicio.getListaProductos().subscribe(
@@ -42,9 +44,6 @@ export class ProductosComponent implements OnInit {
       :'http://localhost:3000/imagenes/default-image.png';
   }
 
-  ngOnInit(): void {
-    this.getProductos();
-  }
 
   // Agregar producto al carrito
   agregarAlCarrito(productoId: number): void {

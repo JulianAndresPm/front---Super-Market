@@ -19,6 +19,8 @@ export class NavbarComponent implements OnInit {
   form: FormGroup;
   editar: boolean = false;
   cantidad: number = 1;
+  valorTotal: number = 0;
+  
 
   //variables para la funcion mostrar usuario
   UserInfo: any = null;
@@ -126,6 +128,7 @@ export class NavbarComponent implements OnInit {
       this._CarritoService.getCarritoByUser(this.usuario_id!).subscribe(
         (data: Carrito[]) => {
           this.CarritoItems = data;
+          this.calcularValorTotal();
           // console.log('Productos en el carrito:', this.CarritoItems);
         },
         (error) => {
@@ -165,6 +168,11 @@ export class NavbarComponent implements OnInit {
     this.editar = false; // Salir del modo de edición sin guardar cambios
   }
 
+  // Método para calcular el valor total
+  calcularValorTotal() {
+    this.valorTotal = this.CarritoItems.reduce((acc, item) => acc + item.subtotal, 0);
+  }
+
   //actualizar los datos - cantidad
 
   updateCarrito(id: number) {
@@ -181,6 +189,7 @@ export class NavbarComponent implements OnInit {
             carritoItem.cantidad = NuevaCantidad;
             carritoItem.subtotal = carritoItem.Producto.precio * NuevaCantidad; // Actualiza el subtotal
           }
+          this.calcularValorTotal();
         },
         (error) => {
           console.error('Error al actualizar la cantidad:', error);
@@ -199,6 +208,7 @@ export class NavbarComponent implements OnInit {
         if (index !== -1) {
           this.CarritoItems.splice(index, 1); // Eliminar localmente
         }
+        this.calcularValorTotal();
       },
       (Error) => {
         console.error('Error al eliminar le prodcuto del carrito', Error);

@@ -1,0 +1,46 @@
+/* Centra el título de la factura */
+.text-center {
+    text-align: center;
+  }
+  
+  /* Estilos para la cabecera de la factura */
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tituloCliente{
+    font-size: larger;
+  }
+  
+  /* Estilos para la alineación de fecha, número de factura y estado */
+  .accordion-header div {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .accordion-header .d-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Ajustes para el total de cliente */
+  .card-title {
+    text-align: center;
+  }
+  
+  .d-flex {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .text-end {
+    text-align: right;
+  }
+  
+  .text-start {
+    text-align: left;
+  }
+  

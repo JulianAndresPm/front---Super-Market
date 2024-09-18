@@ -14,6 +14,7 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
 import { FooterComponent } from './componentes/footer/footer.component';
 import { RegistrarComponent } from './usuarios/registrar/registrar.component';
 import { LoginComponent } from './componentes/login/login.component';
+import { FacturaComponent } from './usuarios/factura/factura.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { LoginComponent } from './componentes/login/login.component';
     InicioComponent,
     FooterComponent,
     RegistrarComponent,
-    LoginComponent
+    LoginComponent,
+    FacturaComponent
   ],
   imports: [
     BrowserModule,

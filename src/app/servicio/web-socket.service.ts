@@ -10,8 +10,7 @@ export class WebSocketService {
   private socket: Socket;
 
   constructor() { 
-
-    this.socket= io(environment.endPoint);
+    this.socket = io(environment.endPoint); // Asegúrate de que esta URL sea correcta
   }
 
   get socketInstance(): Socket {
@@ -27,6 +26,9 @@ export class WebSocketService {
       this.socket.on(event, (data: any) => {
         subscriber.next(data);
       });
+
+      // Maneja el caso en que el Observable se complete o se cancele
+      return () => this.socket.off(event);
     });
   }
 
@@ -35,10 +37,10 @@ export class WebSocketService {
   }
 
   onCarritoActualizado(callback: (data: any) => void): void {
-    this.socket.on('carritoActualizado', callback);
-  }
-  onCarritoEliminado(): Observable<any> {
-    return this.listen('carritoEliminado');
+    this.onEvent('carritoActualizado', callback);
   }
 
+  onCarritoEliminado(): Observable<{ usuario_id: number }> {
+    return this.listen('carritoEliminado');
+  }
 }

@@ -1,0 +1,118 @@
+<div class="container" #facturaHTML>
+  <h1 class="h3 mb-4 mt-4 text-center">Factura</h1>
+  <div class="row">
+    <!-- Left -->
+    <div class="col-lg-9">
+      <div class="accordion" id="accordionPayment">
+        <!-- Credit card -->
+        <div class="accordion-item mb-3">
+          <h5 class="h5 card-header px-4 py-3 accordion-header d-flex">
+            <div class="d-flex justify-content-start flex-grow-1">
+              <div class="me-3" style="font-size: medium">
+                Fecha: <strong>{{ fechaCompra | date:'dd/MM/yyyy HH:mm:ss' }}</strong>
+              </div>
+              <div class="me-3">Factura N° {{numeroFactura}}</div>
+              <div style="font-size: medium">
+                Estado: <strong>{{EstadoFactura}}</strong>
+              </div>
+            </div>
+          </h5>
+          <div id="collapseCC" class="accordion-collapse collapse show" data-bs-parent="#accordionPayment">
+            <div class="accordion-body">
+              <div class="mb-3">
+                Datos Empresa:
+                <div>
+                  <strong>Super Market</strong>
+                </div>
+                <div>Pasto - Nariño, Colombia</div>
+                <div>Calle 17 # 12-87. Centro</div>
+                <div>Email: supermarket@gmail.com</div>
+                <div>Celular: +57 3017898902</div>
+                <div>Nit: 45231548-64</div>
+              </div>
+              <table class="table table-sm table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col" width="2%" class="center">#</th>
+                    <th scope="col" width="20%">Producto</th>
+                    <th scope="col" class="d-none d-sm-table-cell" width="50%">
+                      Descripción
+                    </th>
+                    <th scope="col" width="12%" class="text-right">
+                      V. Unidad
+                    </th>
+                    <th scope="col" width="8%" class="text-right">Num.</th>
+                    <th scope="col" width="12%" class="text-right">Total</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let item of CarritoItems">
+                  <tr>
+                    <td class="text-left">{{ item.id }}</td>
+                    <td class="item_name">{{ item.Producto?.nombre }}</td>
+                    <td class="item_desc d-none d-sm-table-cell">
+                      {{ item.Producto?.descripcion }}
+                    </td>
+                    <td class="text-right">{{ item.Producto?.precio }}</td>
+                    <td class="text-right">{{ item.cantidad }}</td>
+                    <td class="text-right">{{ item.subtotal }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Totals -->
+          <div class="col-lg-4 col-sm-5 ml-auto">
+            <table class="table table-sm table-clear">
+              <tbody>
+                <tr>
+                  <td class="left">
+                    <strong>Subtotal</strong>
+                  </td>
+                  <td class="text-right bg-light">{{subTotal | currency}}</td>
+                </tr>
+                <tr>
+                  <td class="left">
+                    <strong>Iva</strong>
+                  </td>
+                  <td class="text-right bg-light">{{iva | currency}}</td>
+                </tr>
+                <tr>
+                  <td class="left">
+                    <strong>Total</strong>
+                  </td>
+                  <td class="text-right bg-light">
+                    <strong>{{Total | currency}}</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right -->
+    <div class="col-lg-3">
+      <div class="card position-sticky top-0">
+        <h6 class="card-title mb-3 text-center card-header tituloCliente">Datos Cliente</h6>
+        <div class="p-3 bg-light bg-opacity-10">
+          <div class="d-flex justify-content-between mb-1 medium">
+            <span>Nombre</span> <span>{{UserInfo?.nombres}}</span>
+          </div>
+          <div class="d-flex justify-content-between mb-1 medium">
+            <span>Apellidos</span> <span>{{UserInfo?.apellidos}}</span>
+          </div>
+          <hr />
+          <div class="d-flex justify-content-between mb-4 small">
+            <div class="text-start">
+              <span>TOTAL</span>
+            </div>
+            <div class="text-end">
+              <strong class="text-dark">{{Total | currency}}</strong>
+            </div>
+          </div>
+          <button class="btn btn-primary w-100 mt-2" *ngIf="DatosVisibles" (click)="addFactura()">Finalizar orden</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

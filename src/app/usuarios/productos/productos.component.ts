@@ -79,7 +79,6 @@ export class ProductosComponent implements OnInit {
       () => {
         console.log('Producto agregado al carrito');
         // Recargar el carrito después de agregar un producto si es necesario
-        this.cargarCarrito();
       },
       (error) => {
         console.error('Error al agregar el producto al carrito:', error);
@@ -87,8 +86,4 @@ export class ProductosComponent implements OnInit {
     );
   }
 
-  // Método para recargar el carrito
-  cargarCarrito() {
-    // Lógica para cargar el carrito actual desde el backend o almacenamiento local
-  }
 }

@@ -1,10 +1,11 @@
-import { Component, importProvidersFrom, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Carrito } from 'src/app/interfaces/carrito';
 import { CarritoService } from 'src/app/servicio/carrito.service';
-import { ProductoService } from 'src/app/servicio/producto.service';
 import { WebSocketService } from 'src/app/servicio/web-socket.service';
+import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-navbar',
@@ -32,7 +33,8 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private _CarritoService: CarritoService,
     private fm: FormBuilder,
-    private _Socket: WebSocketService
+    private _Socket: WebSocketService,
+    private cdr: ChangeDetectorRef
   ) {
     //
     this.form = this.fm.group({
@@ -54,22 +56,20 @@ export class NavbarComponent implements OnInit {
       this.token = token;
       this.message = message;
     }
-    this.getCarritoByUser();
+    // this.getCarritoByUser();
 
     this._Socket.onCarritoActualizado((data) => {
-      if (data.usuario_id === this.usuario_id) {
-        this.getCarritoByUser(); // Actualiza el carrito cuando se recibe el evento
+      console.log('Evento recibido:', data);
+      console.log('ID de usuario enviado desde el back:', data.usuario_id , 'Id de usuairos en front:', this.usuario_id);
+      if (Number(data.usuario_id) === this.usuario_id) {
+        console.log('Actualizando carrito...');
+        this.calcularValorTotal();  // Recalcula el valor total si es necesario
+        this.getCarritoByUser();
       }
     });
-
-    this._Socket.onCarritoEliminado().subscribe((data) => {
-      const index = this.CarritoItems.findIndex(
-        (item) => item.id === data.carritoId
-      );
-      if (index !== -1) {
-        this.CarritoItems.splice(index, 1); // Eliminar localmente el producto
-      }
-    });
+    
+    
+    
   }
 
   //mostrar las fotos de los clientes
@@ -124,21 +124,23 @@ export class NavbarComponent implements OnInit {
   // --------------------------- funciones para mostrar los productos del usuario en el carrito ---------------------------------
 
   getCarritoByUser(): void {
+    console.log('Llamada a getCarritoByUser');
     if (this.usuario_id) {
       this._CarritoService.getCarritoByUser(this.usuario_id!).subscribe(
         (data: Carrito[]) => {
           this.CarritoItems = data;
           this.calcularValorTotal();
-          // console.log('Productos en el carrito:', this.CarritoItems);
+          console.log('Productos en el carrito:', this.CarritoItems);
         },
         (error) => {
           console.error('Error al obtener los productos del carrito:', error);
         }
       );
     } else {
-      console.log('No se inicia sesion');
+      console.log('No se inicia sesión');
     }
   }
+  
 
   // Mostrar la imagen del producto
   getUrlImagen(imagen: string | null | undefined): string {
@@ -209,6 +211,7 @@ export class NavbarComponent implements OnInit {
           this.CarritoItems.splice(index, 1); // Eliminar localmente
         }
         this.calcularValorTotal();
+
       },
       (Error) => {
         console.error('Error al eliminar le prodcuto del carrito', Error);

@@ -45,4 +45,9 @@ export class CarritoService {
   deleteCarrito(id: number): Observable<void>{
     return this.http.delete<void>(this.myAppUrl + this.myAppiUrl + id)
   }
+
+  //eliminar los productso de un usuario despues de realizar la factura
+  deleteProductosCarrito(id: number): Observable<void>{
+    return this.http.delete<void>(this.myAppUrl + this.myAppiUrl + 'eliminar/' + id)
+  }
 }

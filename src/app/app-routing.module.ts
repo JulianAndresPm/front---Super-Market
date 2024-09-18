@@ -7,6 +7,7 @@ import { RegistroComponent } from './componentes/registro/registro.component';
 import {ProductosComponent} from './usuarios/productos/productos.component'
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { RegistrarComponent } from './usuarios/registrar/registrar.component';
+import { FacturaComponent } from './usuarios/factura/factura.component';
 
 const routes: Routes = [
   {path: '', component: InicioComponent},
@@ -29,6 +30,9 @@ const routes: Routes = [
   {path: 'productos', component: ProductosComponent},
   {path: 'registrar', component: RegistrarComponent},
   {path: 'editarUser/:id', component: RegistrarComponent},
+  {path: 'factura', component: FacturaComponent},
+
+
 
 
 

@@ -6,7 +6,7 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { ListarProductosComponent } from './componentes/listar-productos/listar-productos.component';
 import { AggEditProductosComponent } from './componentes/agg-edit-productos/agg-edit-productos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BarraProgresoComponent } from './compartir/barra-progreso/barra-progreso.component';
 import { RegistroComponent } from './componentes/registro/registro.component';
 import { ProductosComponent } from './usuarios/productos/productos.component';
@@ -15,6 +15,8 @@ import { FooterComponent } from './componentes/footer/footer.component';
 import { RegistrarComponent } from './usuarios/registrar/registrar.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { FacturaComponent } from './usuarios/factura/factura.component';
+import { TokenInterceptor } from './token.interceptor';
+
 
 
 @NgModule({
@@ -39,7 +41,13 @@ import { FacturaComponent } from './usuarios/factura/factura.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true  // Esto asegura que puedas tener múltiples interceptores
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

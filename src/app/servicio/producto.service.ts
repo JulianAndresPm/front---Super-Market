@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environments';
@@ -19,6 +19,14 @@ export class ProductoService {
 
   // Lista productos
   getListaProductos(): Observable<Producto[]> {
+
+    // const token = sessionStorage.getItem('token'); // Obtener el token desde el localStorage
+    // console.log('token obtenido desde el sessionStorage', token);
+    
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`  // Añadir el token en el header Authorization
+    // });
+    
     return this.http.get<Producto[]>(this.myAppUrl + this.myAppiUrl);
   }
   

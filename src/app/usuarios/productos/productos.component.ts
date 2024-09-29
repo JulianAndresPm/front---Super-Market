@@ -3,6 +3,8 @@ import { Producto } from 'src/app/interfaces/producto';
 import { Carrito } from 'src/app/interfaces/carrito';
 import { ProductoService } from 'src/app/servicio/producto.service';
 import { CarritoService } from 'src/app/servicio/carrito.service';
+import { AuthenticationService } from 'src/app/servicio/authentication.service';
+
 
 
 @Component({
@@ -14,13 +16,14 @@ export class ProductosComponent implements OnInit {
   listaProductos: Producto[] = [];
 
   // Variables para la función del carrito
-  usuario_id: number = JSON.parse(sessionStorage.getItem('UserInfo')!)?.id;
+  usuario_id = this._authentication.getUserId();
   carrito: Carrito[] = [];
   productos: any[] = [];
 
   constructor(
     private _productoServicio: ProductoService,
-    private _CarritoService: CarritoService
+    private _CarritoService: CarritoService,
+    private _authentication: AuthenticationService
   ) {}
   
   ngOnInit(): void {
@@ -28,6 +31,7 @@ export class ProductosComponent implements OnInit {
   }
   // Obtener la lista de productos
   getProductos() {
+
     this._productoServicio.getListaProductos().subscribe(
       (data) => {
         this.listaProductos = data;
@@ -46,9 +50,7 @@ export class ProductosComponent implements OnInit {
 
 
   // Agregar producto al carrito
-  agregarAlCarrito(productoId: number): void {
-    console.log(this.usuario_id);
-  
+  agregarAlCarrito(productoId: number): void {  
     if (!this.usuario_id) {
       console.error('No hay usuario autenticado. Por favor, inicia sesión.');
       console.log(Error);
@@ -77,8 +79,6 @@ export class ProductosComponent implements OnInit {
 
     this._CarritoService.agregarProducto(carritoItem).subscribe(
       () => {
-        console.log('Producto agregado al carrito');
-        // Recargar el carrito después de agregar un producto si es necesario
       },
       (error) => {
         console.error('Error al agregar el producto al carrito:', error);

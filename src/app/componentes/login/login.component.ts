@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthUsuariosService } from 'src/app/servicio/auth.usuarios.service';
+import { AuthenticationService } from 'src/app/servicio/authentication.service';
+
 
 
 @Component({
@@ -15,30 +17,30 @@ export class LoginComponent implements OnInit {
   UserType: any = null;
 
 
-  constructor(private _productoServicio: AuthUsuariosService) {}
+  constructor(private _usuarioServicio: AuthUsuariosService, private _authentication:  AuthenticationService) {}
 
   onSubmit() {
-    // console.log(this.usuario, this.passw);
-    
-    this._productoServicio.loginUsuario(this.usuario, this.passw).subscribe(
+
+    this._usuarioServicio.loginUsuario(this.usuario, this.passw).subscribe(
       (response) => {
-        // console.log('Acceso concedido, bienvenido ' + this.usuario);
-        sessionStorage.setItem('token', response.accesstoken); // Almacena el token en sessionStorage
-        sessionStorage.setItem('UserType', response.UserType);
-        sessionStorage.setItem('message', response.message);
-        
+
+        sessionStorage.setItem('token', response.accesstoken);
+
+        // Decodificar el token y mostrarlo en la consola
+        const decodedToken = this._authentication.getDecodedToken();
+        console.log('Token decodificado en Login:', decodedToken);
+
+        this.isLoggedIn = true
 
         //verificar que tipo de usuario es:
-        if (response.UserType === 'admin') {
-          sessionStorage.setItem('UserInfo',JSON.stringify( response.admin)); // Guardar información adicional si es necesario
-            // Redirigir a la página principal 
+        if (this._authentication.getUserRole() === 'admin') {
             window.location.href = '/';
           
-        }if(response.UserType ==='cliente'){
-          sessionStorage.setItem('UserInfo',JSON.stringify( response.cliente)); // Guardar información adicional si es necesario
+        }if(this._authentication.getUserRole() ==='cliente'){
             // Redirigir a la página principal 
             window.location.href = '/';
         }
+
         
       },
       (error) => {
@@ -48,16 +50,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Verifica si el token está en el localStorage
+    // Verifica si el token está en el SessionStorage
     const token = sessionStorage.getItem('token');
-    const UserInfo = sessionStorage.getItem('UserInfo') ?? '{}';
-    if (token) {
-      this.isLoggedIn = true;
-      this.UserInfo = JSON.parse(UserInfo); // Convertir la cadena JSON en un objeto
-    } else {
-      this.isLoggedIn = false;
-      
-    }
+    this.isLoggedIn = !!token; // Establecer isLoggedIn basándote en la existencia del token
   }
   
 }

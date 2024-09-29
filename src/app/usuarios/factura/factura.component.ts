@@ -6,6 +6,7 @@ import { FacturaService } from 'src/app/servicio/factura.service';
 import { WebSocketService } from 'src/app/servicio/web-socket.service';
 import { ChangeDetectorRef } from '@angular/core';
 import {Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/servicio/authentication.service';
 
 @Component({
   selector: 'app-factura',
@@ -13,8 +14,8 @@ import {Router } from '@angular/router';
   styleUrls: ['./factura.component.scss'],
 })
 export class FacturaComponent implements OnInit {
-  usuario_id: number | null = null;
-  UserInfo: any = null;
+  usuario_id = this._authentication.getUserId();
+  UserInfo = this._authentication.getUserInfo();
   CarritoItems: Carrito[] = [];
   subTotal: number = 0;
   iva: number = 0;
@@ -29,9 +30,9 @@ export class FacturaComponent implements OnInit {
 
   constructor(
     private _CarritoService: CarritoService,
-    private _Socket: WebSocketService,
     private _FacturaService: FacturaService,
     private cdr: ChangeDetectorRef,
+    private _authentication: AuthenticationService,
     private router: Router
   ) {}
 

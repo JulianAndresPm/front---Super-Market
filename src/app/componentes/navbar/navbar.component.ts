@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Carrito } from 'src/app/interfaces/carrito';
+import { AuthenticationService } from 'src/app/servicio/authentication.service';
 import { CarritoService } from 'src/app/servicio/carrito.service';
 import { WebSocketService } from 'src/app/servicio/web-socket.service';
-import { ChangeDetectorRef } from '@angular/core';
+
 
 
 @Component({
@@ -34,7 +35,7 @@ export class NavbarComponent implements OnInit {
     private _CarritoService: CarritoService,
     private fm: FormBuilder,
     private _Socket: WebSocketService,
-    private cdr: ChangeDetectorRef
+    private  _authentication:  AuthenticationService
   ) {
     //
     this.form = this.fm.group({
@@ -45,24 +46,21 @@ export class NavbarComponent implements OnInit {
   //-------------------funciones para mostrart usuario ----------------------------------
 
   ngOnInit(): void {
-    const UserInfo = sessionStorage.getItem('UserInfo');
-    const UserType = sessionStorage.getItem('UserType');
     const token = sessionStorage.getItem('token');
-    const message = sessionStorage.getItem('message');
+    const UserInfo = this._authentication.getUserInfo();
+    const usuarios_id = this._authentication.getUserId();
+    const UserType = this._authentication.getUserRole();
+
     if (UserInfo) {
-      this.UserInfo = JSON.parse(UserInfo);
+      this.UserInfo = UserInfo;
       this.UserType = UserType;
-      this.usuario_id = this.UserInfo?.id || null;
+      this.usuario_id = usuarios_id;
       this.token = token;
-      this.message = message;
     }
-    // this.getCarritoByUser();
+    this.getCarritoByUser();
 
     this._Socket.onCarritoActualizado((data) => {
-      console.log('Evento recibido:', data);
-      console.log('ID de usuario enviado desde el back:', data.usuario_id , 'Id de usuairos en front:', this.usuario_id);
       if (Number(data.usuario_id) === this.usuario_id) {
-        console.log('Actualizando carrito...');
         this.calcularValorTotal();  // Recalcula el valor total si es necesario
         this.getCarritoByUser();
       }
@@ -100,18 +98,18 @@ export class NavbarComponent implements OnInit {
   // Métodos para redirigir a las páginas de login y registro
 
   redirectToLogin(): void {
-    window.location.href = '/login';
+   this.router.navigate(['/login'])
   }
 
   redirectToRegister(): void {
     // Redirigir a la página de registro
-    window.location.href = '/registrar';
+   this.router.navigate(['/registrar'])
   }
 
   redirectToUpdate(): void {
-    if (this.UserType === 'cliente') {
+    if (this._authentication.getUserRole() === 'cliente') {
       this.router.navigate(['/editarUser', this.UserInfo.id]);
-    } else if (this.UserType === 'admin') {
+    } else if (this._authentication.getUserRole() === 'admin') {
       this.router.navigate(['/editarAdmin', this.UserInfo.id]);
     }
   }
@@ -124,13 +122,11 @@ export class NavbarComponent implements OnInit {
   // --------------------------- funciones para mostrar los productos del usuario en el carrito ---------------------------------
 
   getCarritoByUser(): void {
-    console.log('Llamada a getCarritoByUser');
-    if (this.usuario_id) {
+    if (this.usuario_id ) {
       this._CarritoService.getCarritoByUser(this.usuario_id!).subscribe(
         (data: Carrito[]) => {
           this.CarritoItems = data;
           this.calcularValorTotal();
-          console.log('Productos en el carrito:', this.CarritoItems);
         },
         (error) => {
           console.error('Error al obtener los productos del carrito:', error);
@@ -203,8 +199,6 @@ export class NavbarComponent implements OnInit {
   eliminarCarrito(id: number): void {
     this._CarritoService.deleteCarrito(id).subscribe(
       () => {
-        console.log('producto eliminado id:' + id);
-
         // Eliminar localmente el producto del carrito
         const index = this.CarritoItems.findIndex((item) => item.id === id);
         if (index !== -1) {
